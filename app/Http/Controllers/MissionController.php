@@ -8,25 +8,43 @@ use Illuminate\Http\Request;
 
 class MissionController extends Controller{
     // ミッションを追加する処理
-    public function add_missions(Request $request) {
-        // Requestから送られた情報を変数に格納
+    public function addMission(Request $request)
+    {
         $mission_title = $request->input('mission_title');
         $mission_sentence = $request->input('mission_sentence');
         $conditions = $request->input('conditions');
-        $mission_class = $request->input('mission_class');
+        $mission_class = $request->input('mission_class') === '通常' ? 1 : 0; // '緊急' の場合 1、それ以外は 0
         $reward = $request->input('reward');
-        // データベースに保存
-        Missions::create([
+        
+        // $mission を使って新しいミッションを作成
+        $mission = Missions::create([
             'mission_title' => $mission_title,
             'mission_sentence' => $mission_sentence,
             'conditions' => $conditions,
             'mission_class' => $mission_class,
             'reward' => $reward,
         ]);
-        // 成功メッセージを返答
-        return response()->json(['message' => 'Event added successfully'], 200);
+        
+        // Web からアクセスされる場合はビューを返す
+        return view('missions.added', ['mission' => $mission]);
+    }
+    
+    
+
+    public function showAddMissionForm()
+    {
+        return view('add_mission_form');
     }
 
+    
+    public function showMissions()
+    {
+        // missionsテーブルの全てのデータを取得
+        $missions = Missions::all();
+    
+        // ビューにデータを渡して表示
+        return view('missions', ['missions' => $missions]);
+    }
     // ミッションと参加者の結び付けをする処理
     public function add_mission_participation(Request $request) {
         // Requestから送られた情報を変数に格納
