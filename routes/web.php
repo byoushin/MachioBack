@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\MissionController;
+use App\Http\Controllers\HomeController;
 // use App\Http\Controllers\ChatController;
 /*
 |--------------------------------------------------------------------------
@@ -46,3 +47,29 @@ Route::get('/get_mission_list/{event_id}/{class}', [MissionController::class, 'g
 Route::post('/add_mission_photograph', [MissionController::class, 'add_mission_photograph']);
 Route::get('/get_notification_list', [NotificationController::class, 'get_list']);
 
+
+// 追加した部分　管理者
+// ホーム画面遷移
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// 通知
+Route::get('/show-notifications', [NotificationController::class, 'showNotifications']);
+Route::get('/add-notification', [NotificationController::class, 'showAddNotificationForm']);
+Route::post('/add-notification', [NotificationController::class, 'addNotification'])->name('add-notification');
+Route::delete('/notifications/{id}', [NotificationController::class, 'deleteNotification'])->name('notifications.delete');
+
+// ミッション
+Route::get('/show-missions', [MissionController::class, 'showMissions']);
+Route::post('/add-mission', [MissionController::class, 'addMission'])->name('add-mission');
+Route::get('/add-mission-form', [MissionController::class, 'showAddMissionForm'])->name('add-mission-form');
+
+
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::get('/register', function () {
+    return view('register');
+})->name('register');
+
+Route::post('/register', [AuthController::class, 'register'])->name('register');
