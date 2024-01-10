@@ -37,8 +37,8 @@ class AuthController extends Controller{
         $token = $user->createToken('auth_token')->plainTextToken;
         $user_id = $user->id;
 
-       
-        return response($user_id, 200);
+        return response()->json(['user_id' => $user_id], 200);
+
     }
     public function login(Request $request)    {
         if (!Auth::attempt($request->only('email', 'password'))) {
