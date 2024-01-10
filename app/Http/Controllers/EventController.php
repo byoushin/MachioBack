@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Http\Controllers;
+use App\Models\Event;
+use App\Models\Participation;
+use Illuminate\Http\Request;
+
+class EventController extends Controller{
+    // イベントを追加する処理
+    public function add_event(Request $request) {
+        // Requestの値を変数に格納
+        $event_name = $request->input('event_name');
+        $introduction = $request->input('introduction');
+        $event_date = $request->input('event_date');
+        
+        // データベースに保存
+        Event::create([
+            'event_name' => $event_name,
+            'introduction' => $introduction,
+            'event_date' => $event_date,
+        ]);
+        // 成功メッセージを返答
+        return response()->json(['message' => 'Event added successfully'], 200);
+    }
+
+    // イベントコードとユーザの結び付け
+    public function participation(Request $request) {
+        // Requestの値を変数に格納
+        $event_id = $request->input('event_id');
+        $user_id = $request->input('user_id');
+
+        $participation = Participation::where('event_id', $event_id)
+        ->where('user_id', $user_id)
+        ->firstOrFail();
+        
+        // 成功メッセージを返答
+        $participation = json_encode($participation);
+        return response($participation, 200);
+    }
+    
+    // イベントの参加者を登録する処理
+    public function add_participation(Request $request) {
+        // Requestの値を変数に格納
+        $event_id = $request->input('event_id');
+        $team_id = $request->input('team_id');
+        $user_id = $request->input('user_id');
+        $classification = $request->input('classification');
+        $score = $request->input('score');
+        $rank = $request->input('rank');
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
+
+        // データベースに保存
+        Participation::create([
+            'event_id' => $event_id,
+            'team_id' => $team_id,
+            'user_id' => $user_id,
+            'classification' => $classification,
+            'score' => $score,
+            'rank' => $rank,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+        ]);
+        // 成功メッセージを返答
+        return response()->json(['message' => 'Event added successfully'], 200);
+    }
+}
