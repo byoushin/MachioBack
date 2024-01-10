@@ -31,11 +31,27 @@ class EventController extends Controller{
 
         $participation = Participation::where('event_id', $event_id)
         ->where('user_id', $user_id)
-        ->firstOrFail();
-        
-        // 成功メッセージを返答
-        $participation = json_encode($participation);
-        return response($participation, 200);
+        ->first();
+
+        if (!$participation) {
+            // 新規登録処理
+            $newParticipation = new Participation();
+            $newParticipation->event_id = $event_id;
+            $newParticipation->user_id = $user_id;
+            $newParticipation->team_id = 1;
+            $newParticipation->classification = 0;
+            $newParticipation->score = 2434;
+            $newParticipation->rank = 0;
+            $newParticipation->latitude = 0;
+            $newParticipation->longitude = 0;
+            $newParticipation->save();
+
+            // 新規登録したデータを返す
+            return response()->json($newParticipation, 200);
+        }
+
+        // 既存のデータが見つかった場合はそのまま返す
+        return response()->json($participation, 200);
     }
     
     // イベントの参加者を登録する処理
