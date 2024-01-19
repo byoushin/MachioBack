@@ -9,12 +9,15 @@ class Team extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'team_id',
         'leader_id',
         'team_name',
+        'score',
+        'latitude',
+        'longitude',
     ];
     protected $table = 'teams';
     
+    protected $primaryKey = 'team_id';
     public function Participation() {
         return $this->belongsTo('App\Models\Participation');
     }

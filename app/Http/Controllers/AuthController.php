@@ -16,20 +16,12 @@ class AuthController extends Controller{
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-            // 'tel' => 'nullable',
-            // 'affiliation' => 'nullable|string',
-            'birth' => 'nullable|date',
-            'registration_date' => 'nullable|date',
         ]);
         
         // モデルでユーザ情報をデータベースに登録
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
-            'tel' => 12345,
-            'affiliation' => 'affiliation',
-            'birth' => $validatedData['birth'],
-            'registration_date' => $validatedData['registration_date'],
             'password' => Hash::make($validatedData['password']),
         ]);
         
@@ -59,4 +51,8 @@ class AuthController extends Controller{
         ]);
     } 
     
+    public function add_user_form()
+    {
+        return view('add_user_form');
+    }
 }

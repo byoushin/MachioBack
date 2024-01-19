@@ -58,30 +58,22 @@
         }
     </style>
 </head>
-<?php
 
-$event_id = 1;
-?>
 <body>
     <!-- タイトル -->
     <h1>まちなか鬼ごっこ<span style="font-size: 20px;"> 運営ページ</span></h1>
-
+        
     <!-- ボタンのHTMLコード -->
     <div class="button-container">
-        <a href="{{ url('/map') }}" class="round-button">マップ</a>
+        <a href="{{ url('/operation-event') }}" class="round-button">イベント運営</a>
+        <!-- <a href="{{ url('/show-missions') }}" class="round-button">イベント作成</a> -->
         <a href="{{ url('/show-notifications') }}" class="round-button">通知一覧</a>
         <a href="{{ route('add-notification') }}" class="round-button">通知追加</a>
-    </div>
-    <div class="button-container">
         <a href="{{ route('add-mission-form') }}" class="round-button">ミッション追加フォーム</a>
-        <a href="{{ url('/show-missions') }}" class="round-button">ミッション一覧</a>
-        <a href="{{ url('/score_move/'.$event_id) }}" class="round-button">ポイント移動</a>
-    </div>
-    <div class="button-container">
-        <a href="{{ url('/add_user_form') }}" class="round-button">ユーザ登録</a>
-        <a href="{{ url('/add_team_form') }}" class="round-button">チーム登録</a>
-        <a href="{{ url('/add_participation_form/'.$event_id) }}" class="round-button">参加者追加</a>
-
+        <a href="{{ url('/show-missions') }}" class="round-button">ミッション対応</a>
+        <a href="{{ url('/show-missions') }}" class="round-button">ユーザ登録</a>
+        <a href="{{ url('/show-missions') }}" class="round-button">チーム登録</a>
+        <a href="{{ url('/show-missions') }}" class="round-button">メンバー追加</a>
     </div>
 </body>
 

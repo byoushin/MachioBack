@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ミッション一覧</title>
+    <title>チーム一覧</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -15,7 +15,7 @@
             align-items: center;
         }
 
-        .mission-container {
+        .team-container {
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -35,7 +35,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             font-family: '游ゴシック体', 'Yu Gothic', 'メイリオ', Meiryo, sans-serif; 
             text-align: center;
-            margin-top: 15px; /* 上部のマージンを追加 */
+            margin-top: 20px; /* 上部のマージンを追加 */
             margin-bottom: 10px; /* 上部のマージンを追加 */
         }
 
@@ -50,7 +50,6 @@
             padding: 10px;
             margin-bottom: 20px;
             border-bottom: 1px solid #ddd;
-            position: relative;
         }
 
         strong {
@@ -63,9 +62,9 @@
             color: #007bff;
             font-weight: bold;
             margin-bottom: 10px;
-            /* position: absolute; この行を削除またはコメントアウトするか、position: relative; に変更する */
-            top: 10px;
-            left: 10px;
+            position: absolute;
+            top: 10px; /* 上部からの位置を設定 */
+            left: 10px; /* 左部からの位置を設定 */
         }
 
         a:hover {
@@ -74,20 +73,30 @@
     </style>
 </head>
 <body>
-    <h1>ミッション一覧</h1>
+    <h1>チーム一覧</h1>
     <a href="{{ route('home') }}">ホーム画面へ戻る</a>
-    <div class="mission-container">
+    <div class="team-container">
         <ul>
-            @foreach($missions as $mission)
+            @foreach($teams as $team)
             
             <li>
-                <a href="{{ route('mission.details', ['id' => $mission->mission_id]) }}">
-                    <strong>ミッションタイトル:</strong> {{ $mission->mission_title }}<br>
-                    <strong>ミッション本文:</strong> {{ $mission->mission_sentence }}<br>
-                    <strong>達成条件:</strong> {{ $mission->conditions }}<br>
-                    <strong>ミッションクラス:</strong> {{ $mission->mission_class ? '通常' : '緊急' }}<br>
-                    <strong>報酬金:</strong> {{ $mission->reward }}<br>
-                </a>
+                    <strong>チーム名:</strong> {{ $team->team_name }}<br>
+                    <strong>スコア:</strong> {{ $team->score }}<br>
+                    <div class="mb-3">
+                    <!-- <div class="input-group"> -->
+                        
+                    <form action="{{ route('up_score') }}" method="post">
+                        @csrf
+                        <label for="score" class="form-label">スコア:</label>
+                            <input type="number" class="form-control" name="score" id="score" min="0" max="9999" value = "{{ $team->score }}" required>
+                            <input type="hidden" class="form-control" name="team_id" id="conditions" value="{{ $team->team_id }}" required>
+                            <input type="hidden" class="form-control" name="event_id" id="conditions" value="{{ $event_id }}" required>
+            
+                            <button type="submit" class="btn btn-primary">スコア更新</button>
+                    </form>
+
+            </div>
+
             </li>
 
             @endforeach

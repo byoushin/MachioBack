@@ -35,7 +35,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             font-family: '游ゴシック体', 'Yu Gothic', 'メイリオ', Meiryo, sans-serif; 
             text-align: center;
-            margin-top: 15px; /* 上部のマージンを追加 */
+            margin-top: 20px; /* 上部のマージンを追加 */
             margin-bottom: 10px; /* 上部のマージンを追加 */
         }
 
@@ -50,7 +50,6 @@
             padding: 10px;
             margin-bottom: 20px;
             border-bottom: 1px solid #ddd;
-            position: relative;
         }
 
         strong {
@@ -63,9 +62,9 @@
             color: #007bff;
             font-weight: bold;
             margin-bottom: 10px;
-            /* position: absolute; この行を削除またはコメントアウトするか、position: relative; に変更する */
-            top: 10px;
-            left: 10px;
+            position: absolute;
+            top: 10px; /* 上部からの位置を設定 */
+            left: 10px; /* 左部からの位置を設定 */
         }
 
         a:hover {
@@ -81,13 +80,11 @@
             @foreach($missions as $mission)
             
             <li>
-                <a href="{{ route('mission.details', ['id' => $mission->mission_id]) }}">
                     <strong>ミッションタイトル:</strong> {{ $mission->mission_title }}<br>
                     <strong>ミッション本文:</strong> {{ $mission->mission_sentence }}<br>
                     <strong>達成条件:</strong> {{ $mission->conditions }}<br>
                     <strong>ミッションクラス:</strong> {{ $mission->mission_class ? '通常' : '緊急' }}<br>
                     <strong>報酬金:</strong> {{ $mission->reward }}<br>
-                </a>
             </li>
 
             @endforeach

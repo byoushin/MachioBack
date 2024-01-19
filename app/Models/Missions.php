@@ -17,5 +17,6 @@ class Missions extends Model
         'reward',
     ];
     protected $table = 'missions';
+    protected $primaryKey = 'mission_id';
     
 }
