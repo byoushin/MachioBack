@@ -9,6 +9,8 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <title>Your Laravel App</title>
+    
+    @vite(['resources/css/styles.css', 'resources/js/app.js'])
 </head>
 <body>
     @yield('content')

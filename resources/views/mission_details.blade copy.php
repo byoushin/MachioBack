@@ -57,7 +57,7 @@
             color: #007bff;
             display: inline;
         }
-
+        
         a {
             text-decoration: none;
             color: #007bff;
@@ -67,31 +67,45 @@
             top: 10px;
             left: 10px;
         }
-
+        
         a:hover {
             text-decoration: underline;
         }
-    </style>
+        </style>
 </head>
 <body>
     <h1>ミッション一覧</h1>
     <a href="{{ route('home') }}">ホーム画面へ戻る</a>
+    
     <div class="mission-container">
         <ul>
             @foreach($missions as $mission)
-            
             <li>
-                <a href="{{ route('mission.details', ['id' => $mission->mission_id]) }}">
-                    <strong>ミッションタイトル:</strong> {{ $mission->mission_title }}<br>
-                    <strong>ミッション本文:</strong> {{ $mission->mission_sentence }}<br>
-                    <strong>達成条件:</strong> {{ $mission->conditions }}<br>
-                    <strong>ミッションクラス:</strong> {{ $mission->mission_class ? '通常' : '緊急' }}<br>
-                    <strong>報酬金:</strong> {{ $mission->reward }}<br>
-                </a>
-            </li>
+                <strong>ミッションタイトル:</strong> {{ $mission->team_id }}<br>
+                <strong>ミッション本文:</strong> {{ $mission->flag }}<br>
+                <strong>達成条件:</strong> {{ $mission->updated_at }}<br>
+                <img src="{{asset('storage/5RXi6Zhc0RboNdgkFljtEqbCja1JKOcc0NM9Kb64.jpg')}}" width='50vw'>
+                <img src="{{ asset('storage/avatar/' . $mission->image_filename) }}" alt="Mission Image">
+                <!-- <img src="{{ asset('storage/avatar/' . $mission->image_filename) }}" alt="Mission Image"> -->
+                
+                
+                @if ($mission->flag != 2)
+                {{-- 承認ボタン --}}
+                        <form action="{{ route('check_mission', ['mission_id' => $mission->mission_id, 'team_id' => $mission->team_id, 'flag' => 2, 'reward' => $mission_details->reward]) }}" method="post">
+                            @csrf
+                            <button type="submit">承認</button>
+                        </form>
 
+                        {{-- 却下ボタン --}}
+                        <form action="{{ route('check_mission', ['mission_id' => $mission->mission_id, 'team_id' => $mission->team_id, 'flag' => 1, 'reward' => $mission_details->reward]) }}" method="post">
+                            @csrf
+                            <button type="submit">却下</button>
+                        </form>
+                    @endif
+                </li>
             @endforeach
         </ul>
+
     </div>
 </body>
 </html>

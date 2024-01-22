@@ -43,6 +43,16 @@ public function showAddNotificationForm()
     // 通知を追加するためのフォームを表示するロジックを追加
     return view('add_notification_form');
 }
+public function showNotifications()
+{
+    // notificationsテーブルの全てのデータを取得
+    $notifications = Notification::all();
+
+    // ビューにデータを渡して表示
+    return view('notifications', ['notifications' => $notifications]);
+}
+
+// app/Http/Controllers/NotificationController.php
 
 public function get_list()
 {

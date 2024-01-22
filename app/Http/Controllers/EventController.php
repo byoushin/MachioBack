@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Participation;
+use App\Models\User;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class EventController extends Controller{
@@ -21,6 +23,8 @@ class EventController extends Controller{
         ]);
         // 成功メッセージを返答
         return response()->json(['message' => 'Event added successfully'], 200);
+            // Web からアクセスされる場合はビューを返す
+        return view('events.added', ['event' => $event]);
     }
 
     // イベントコードとユーザの結び付け
@@ -67,17 +71,28 @@ class EventController extends Controller{
         $longitude = $request->input('longitude');
 
         // データベースに保存
-        Participation::create([
+        $Participation = Participation::create([
             'event_id' => $event_id,
             'team_id' => $team_id,
             'user_id' => $user_id,
-            'classification' => $classification,
-            'score' => $score,
-            'rank' => $rank,
-            'latitude' => $latitude,
-            'longitude' => $longitude,
+            'classification' => 0,
+            'score' => 0,
+            'rank' => 0,
+            'latitude' => 0,
+            'longitude' => 0,
         ]);
+        return view('participations.added', ['Participation' => $Participation]);
         // 成功メッセージを返答
         return response()->json(['message' => 'Event added successfully'], 200);
+    }
+    public function add_participation_form($event_id)
+    {
+        // 通知を追加するためのフォームを表示
+        // eventsテーブルの全てのデータを取得
+        $users = User::all();
+        
+        $teams = Team::all();
+        // ビューにデータを渡して表示
+        return view('add_participation_form',['users' => $users,'teams' =>$teams,'event_id' => $event_id]);
     }
 }
