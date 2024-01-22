@@ -23,6 +23,8 @@ class EventController extends Controller{
         ]);
         // 成功メッセージを返答
         return response()->json(['message' => 'Event added successfully'], 200);
+            // Web からアクセスされる場合はビューを返す
+        return view('events.added', ['event' => $event]);
     }
 
     // イベントコードとユーザの結び付け
@@ -69,7 +71,7 @@ class EventController extends Controller{
         $longitude = $request->input('longitude');
 
         // データベースに保存
-        Participation::create([
+        $Participation = Participation::create([
             'event_id' => $event_id,
             'team_id' => $team_id,
             'user_id' => $user_id,
@@ -79,13 +81,14 @@ class EventController extends Controller{
             'latitude' => 0,
             'longitude' => 0,
         ]);
+        return view('participations.added', ['Participation' => $Participation]);
         // 成功メッセージを返答
         return response()->json(['message' => 'Event added successfully'], 200);
     }
     public function add_participation_form($event_id)
     {
         // 通知を追加するためのフォームを表示
-        // missionsテーブルの全てのデータを取得
+        // eventsテーブルの全てのデータを取得
         $users = User::all();
         
         $teams = Team::all();

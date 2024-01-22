@@ -73,7 +73,7 @@
     </style>
 </head>
 <body>
-    <h1>ミッション一覧</h1>
+    <h1>通知一覧</h1>
     <a href="{{ route('home') }}">ホーム画面へ戻る</a>
     <div class="mission-container">
         <ul>

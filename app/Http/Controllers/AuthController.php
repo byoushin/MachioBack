@@ -29,7 +29,8 @@ class AuthController extends Controller{
         $token = $user->createToken('auth_token')->plainTextToken;
         $user_id = $user->id;
 
-        return response()->json(['user_id' => $user_id], 200);
+        return view('users.added', ['user' => $user]);
+        // return response()->json(['user_id' => $user_id], 200);
 
     }
     public function login(Request $request)    {

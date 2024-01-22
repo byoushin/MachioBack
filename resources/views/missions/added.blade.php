@@ -4,7 +4,6 @@
 @section('content')
     <h1>ミッションが正常に追加されました</h1>
     <p>
-        <strong>ミッションID:</strong> {{ $mission->id }}<br>
         <strong>ミッションタイトル:</strong> {{ $mission->mission_title }}<br>
         <strong>ミッション本文:</strong> {{ $mission->mission_sentence }}<br>
         <strong>達成条件:</strong> {{ $mission->conditions }}<br>

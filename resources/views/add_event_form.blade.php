@@ -6,7 +6,7 @@
     <div class="container mt-5">
         <h1>イベントを追加</h1>
 
-        <form action="{{ route('add-mission') }}" method="post">
+        <form action="{{ route('add-event') }}" method="post">
             @csrf
             <div class="mb-3">
                 <label for="mission_title" class="form-label">イベントタイトル:</label>

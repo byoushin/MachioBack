@@ -21,15 +21,15 @@ class TeamController extends Controller
         $latitude = 0.0;
         $longitude = 0.0;
     
-        Team::create([
+        $team = Team::create([
             'leader_id' => $leader_id,
             'team_name' => $team_name,
             'score' => $score,
             'latitude' => $latitude, // 追加
             'longitude' => $longitude, // 追加
         ]);
-    
-        return response()->json(['message' => 'Team added successfully'], 200);
+        return view('teams.added', ['team' => $team]);
+        // return response()->json(['message' => 'Team added successfully'], 200);
     }
     
     
@@ -69,7 +69,7 @@ class TeamController extends Controller
         }
         public function add_team_form()
         {
-            // missionsテーブルの全てのデータを取得
+            // teamssテーブルの全てのデータを取得
             $users = User::all();
         
             // ビューにデータを渡して表示

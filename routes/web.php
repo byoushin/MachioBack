@@ -65,7 +65,7 @@ Route::post('/add-notification', [NotificationController::class, 'addNotificatio
 Route::delete('/notifications/{id}', [NotificationController::class, 'deleteNotification'])->name('notifications.delete');
 
 // ミッション
-Route::post('/add-mission', [MissionController::class, 'addMission'])->name('add-mission');
+Route::post('/add-mission', [MissionController::class, 'add_missions'])->name('add-mission');
 Route::post('/check_mission', [MissionController::class, 'check_mission'])->name('check_mission');
 Route::get('/show-missions', [MissionController::class, 'showMissions']);
 Route::get('/add-mission-form', [MissionController::class, 'showAddMissionForm'])->name('add-mission-form');
