@@ -29,35 +29,43 @@ class EventController extends Controller{
 
     // イベントコードとユーザの結び付け
     public function participation(Request $request) {
-        // Requestの値を変数に格納
-        $event_id = $request->input('event_id');
-        $user_id = $request->input('user_id');
+    // Requestの値を変数に格納
+    $event_id = $request->input('event_id');
+    $user_id = $request->input('user_id');
 
-        $participation = Participation::where('event_id', $event_id)
+    $participation = Participation::where('event_id', $event_id)
         ->where('user_id', $user_id)
         ->first();
 
-        if (!$participation) {
+    if (!$participation) {
             // 新規登録処理
-            $newParticipation = new Participation();
-            $newParticipation->event_id = $event_id;
-            $newParticipation->user_id = $user_id;
-            $newParticipation->team_id = 1;
-            $newParticipation->classification = 0;
-            $newParticipation->score = 2434;
-            $newParticipation->rank = 0;
-            $newParticipation->latitude = 0;
-            $newParticipation->longitude = 0;
-            $newParticipation->save();
-
-            // 新規登録したデータを返す
-            return response()->json($newParticipation, 200);
-        }
-
-        // 既存のデータが見つかった場合はそのまま返す
-        return response()->json($participation, 200);
-    }
+            $new_participation = new Participation();
+            $new_participation->event_id = $event_id;
+            $new_participation->user_id = $user_id;
+            $new_participation->team_id = 1;
+            $new_participation->classification = 0;
+            $new_participation->score = 2434;
+            $new_participation->rank = 0;
+            $new_participation->latitude = 0;
+            $new_participation->longitude = 0;
+            $new_participation->save();
     
+            // 新規登録したデータを返す
+            // return response()->json($newnew_participation, 200);
+            $teamParticipation = Team::where('team_id', $new_participation->team_id)
+                ->first();
+        
+            // 既存のデータが見つかった場合はそのまま返す
+            return response()->json(['teamParticipation' => $teamParticipation, 'participation' => $new_participation], 200);
+        }
+    
+        // ここで $participation の値を取得
+        $teamParticipation = Team::where('team_id', $participation->team_id)
+            ->first();
+    
+        // 既存のデータが見つかった場合はそのまま返す
+        return response()->json(['teamParticipation' => $teamParticipation, 'participation' => $participation], 200);
+    }
     // イベントの参加者を登録する処理
     public function add_participation(Request $request) {
         // Requestの値を変数に格納

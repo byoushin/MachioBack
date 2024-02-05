@@ -9,6 +9,21 @@
         <form action="{{ route('add-mission') }}" method="post">
             @csrf
             <div class="mb-3">
+                <div class="input-group">
+                <label for="event_id" class="form-label">イベントID:</label>
+                    <input type="number" class="form-control" name="event_id" id="event_id" min="1" max="9999" required>
+                    <!-- <span class="input-group-text">万</span> -->
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="input-group">
+                <label for="mission_no" class="form-label">ミッションNo:</label>
+                <!-- <span class="input-group-text">No:</span> -->
+                    <input type="number" class="form-control" name="mission_no" id="mission_no" min="1" max="9999" required>
+                </div>
+            </div>
+
+	    <div class="mb-3">
                 <label for="mission_title" class="form-label">ミッションタイトル:</label>
                 <input type="text" class="form-control" name="mission_title" id="mission_title" required>
             </div>

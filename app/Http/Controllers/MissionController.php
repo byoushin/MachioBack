@@ -16,7 +16,8 @@ class MissionController extends Controller{
         $conditions = $request->input('conditions');
         $mission_class = $request->input('mission_class') === '通常' ? 1 : 0; // '緊急' の場合 1、それ以外は 0
         $reward = $request->input('reward');
-       
+	$event_id = $request->input('event_id');
+	$mission_no = $request->input('mission_no');
         // $mission を使って新しいミッションを作成
         $mission = Missions::create([
             'mission_title' => $mission_title,
@@ -25,7 +26,14 @@ class MissionController extends Controller{
             'mission_class' => $mission_class,
             'reward' => $reward,
         ]);
-       
+	
+ 	
+        $mission_event = Mission_event::create([
+            'mission_id' => $mission->mission_id,  // missionsテーブルの新しいミッションのIDを使用
+            'event_id' => $event_id,  // 適切なリクエストデータを使用
+            'mission_no' => $mission_no,
+	]);
+
         // Web からアクセスされる場合はビューを返す
         return view('missions.added', ['mission' => $mission]);
     }

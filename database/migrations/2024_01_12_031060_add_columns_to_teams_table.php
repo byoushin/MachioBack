@@ -13,6 +13,8 @@ class AddColumnsToTeamsTable extends Migration
     Schema::table('teams', function (Blueprint $table) {
         $table->double('latitude');
         $table->double('longitude');
+
+	$table->integer('score')->default(0);
     });
 }
 
@@ -21,6 +23,8 @@ public function down(): void
     Schema::table('teams', function (Blueprint $table) {
         $table->dropColumn('latitude');
         $table->dropColumn('longitude');
+
+	$table->integer('score')->default(0);
     });
 }
 

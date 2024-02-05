@@ -127,7 +127,7 @@
                             <button type="submit">却下</button>
                         </form>
                         @endif
-                        <img src="{{asset('storage/' . $mission->photo_evidence) }}" alt="Your Image" width='100%'>
+                        <img src="{{ asset('storage/' . $mission->photo_evidence) }}" alt="Your Image" width='100%'>
                     </li>
                 @endforeach
             </ul>

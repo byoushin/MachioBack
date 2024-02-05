@@ -27,14 +27,14 @@ class NotificationController extends Controller
         return view('notifications.added', ['notification' => $notification]);
     }
     
-    public function showNotifications()
-    {
+//    public function showNotifications()
+  //  {
         // notificationsテーブルの全てのデータを取得
-        $notifications = Notification::all();
+    //    $notifications = Notification::all();
     
         // ビューにデータを渡して表示
-        return view('notifications', ['notifications' => $notifications]);
-    }
+      //  return view('notifications', ['notifications' => $notifications]);
+    //}
     
 // app/Http/Controllers/NotificationController.php
 
